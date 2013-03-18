@@ -8,8 +8,7 @@ import org.junit.runner.RunWith;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.BDDMockito.*;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 /**
  * Copyright (c) Tuenti Technologies. All rights reserved.
@@ -19,21 +18,25 @@ import static org.mockito.Mockito.mock;
 @RunWith(MyApplicationTestRunner.class)
 public class EmployeeTest {
 
-    @Test
-    public void testGetName() {
-        Employee employee = new Employee("Fernando");
-        assertThat(employee.getName(), is(equalTo("Fernando")));
-    }
+	@Test
+	public void testGetName() {
+		Employee employee = new Employee("Fernando");
+		assertThat(employee.getName(), is(equalTo("Fernando")));
+	}
 
-    @Test
-    public void testMockitoOne() {
-        Employee mockEmployee = mock(Employee.class);
+	@Test(expected = RuntimeException.class)
+	public void testThrowException() {
+		Employee employee = new Employee("Fernando");
+		employee.throwException();
+	}
 
-        given(mockEmployee.getName()).willReturn("Roberto");
+	@Test
+	public void testSetName() {
+		Employee mockEmployee = mock(Employee.class);
 
-        assertThat(mockEmployee.getName(), is(equalTo("Roberto")));
+		mockEmployee.setName("Hola");
 
-        verify(mockEmployee).getName();
-        verifyNoMoreInteractions(mockEmployee);
-    }
+		verify(mockEmployee).setName("Hola");
+		verify(mockEmployee, never()).setName("Fer");
+	}
 }

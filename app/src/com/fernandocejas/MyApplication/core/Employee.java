@@ -7,13 +7,38 @@ package com.fernandocejas.MyApplication.core;
  */
 public class Employee {
 
-    private final String name;
+	private String name;
 
-    public Employee(String name) {
-        this.name = name;
-    }
+	public Employee(String name) {
+		this.name = name;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getStaticValueInNonStaticMethod() {
+		return getLibraryValue();
+	}
+
+	public String getLibraryValue() {
+		return MyThirdPartyLibrary.getStaticValue();
+	}
+
+	public void throwException() {
+		throw new RuntimeException();
+	}
+
+	static class MyThirdPartyLibrary {
+		private MyThirdPartyLibrary() {
+		}
+
+		public static String getStaticValue() {
+			return "hello static";
+		}
+	}
 }
