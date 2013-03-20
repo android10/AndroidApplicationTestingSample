@@ -10,8 +10,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.Mock;
 
 /**
@@ -48,10 +47,19 @@ public class MockitoTestAnnotations {
 	}
 
 	@Test
+	public void testVoid() {
+		doNothing().when(employeeSpy).someVoid();
+
+		employeeSpy.someVoid();
+
+		verify(employeeSpy).someVoid();
+	}
+
+	@Test
 	public void testStaticMethod() {
 		given(employeeSpy.getLibraryValue()).willReturn("static");
 
-		assertThat(employeeSpy.getStaticValueInNonStaticMethod(), equalTo("static"));
+		assertThat(employeeSpy.getStaticValueInNonStaticMethod(), is(equalTo("static")));
 
 		verify(employeeSpy).getStaticValueInNonStaticMethod();
 	}

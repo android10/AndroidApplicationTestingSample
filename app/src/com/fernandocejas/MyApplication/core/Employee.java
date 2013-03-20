@@ -33,6 +33,10 @@ public class Employee {
 		throw new RuntimeException();
 	}
 
+	public void someVoid() {
+		return;
+	}
+
 	static class MyThirdPartyLibrary {
 		private MyThirdPartyLibrary() {
 		}
